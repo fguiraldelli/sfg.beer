@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static com.guiraldelli.francisco.sfg.beer.utils.Constants.SERVER_HOST;
+
 @RequestMapping("api/v1/beer")
 @RestController
 public class BeerController {
 
     private final BeerService beerService;
-
-    private static final String SERVER_HOST = "http://localhost:8080";
 
     public BeerController(BeerService beerService) {
         this.beerService = beerService;
@@ -30,11 +30,9 @@ public class BeerController {
     public ResponseEntity handlePost(@RequestBody BeerDto beerDto) {
 
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
-
         HttpHeaders headers = new HttpHeaders();
-
-        headers.add("Location", SERVER_HOST + "/api/v1/beer/" + savedDto.getId().toString());
-
+        headers.add("Location", SERVER_HOST + "/api/v1/beer/" +
+                savedDto.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 

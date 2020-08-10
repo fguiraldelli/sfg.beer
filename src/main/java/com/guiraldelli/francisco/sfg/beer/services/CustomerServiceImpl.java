@@ -1,10 +1,12 @@
 package com.guiraldelli.francisco.sfg.beer.services;
 
 import com.guiraldelli.francisco.sfg.beer.web.model.CustomerDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Override
@@ -13,4 +15,24 @@ public class CustomerServiceImpl implements CustomerService {
                 .name("Chico")
                 .build();
     }
+
+    @Override
+    public CustomerDto saveNewCustomer(CustomerDto customerDto) {
+        return CustomerDto.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+    }
+
+    @Override
+    public void updateCustomer(UUID customerId, CustomerDto customerDto) {
+      log.debug("Updating customer: \n" + customerDto.toString());
+    }
+
+    @Override
+    public void deleteCustomerById(UUID customerId) {
+        log.debug("Deleting customer: " + customerId.toString());
+    }
+
+
 }
