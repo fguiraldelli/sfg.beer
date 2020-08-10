@@ -39,8 +39,14 @@ public class BeerController {
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+    @ResponseStatus(HttpStatus.NO_CONTENT) //when you cannot need to pass a header you can use this annotation
+    public void handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
         beerService.updateBeer(beerId, beerDto);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping({"/{beerId}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT) //when you cannot need to pass a header you can use this annotation
+    public void deleteBeer(@PathVariable("beerId") UUID beerId) {
+        beerService.deleteBeerById(beerId);
     }
 }
